@@ -3,10 +3,14 @@ import request
 import openai
 import json
 import googlemaps
+from dotenv import load_dotenv
 import os
+
+load_dotenv()  # this loads variables from .env
+openai.api_key = os.getenv("openai_key")
+googlemaps.api_key = os.getenv("gmaps_key")
 app = FastAPI()
-# Secure your API key
-openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 @app.get("/")
 async def root():
