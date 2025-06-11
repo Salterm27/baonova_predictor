@@ -16,7 +16,7 @@ class AttributeRequest(BaseModel):
     street_type: Dict[str, int]
     tags: Dict[str, int]
 
-class   Prediction_Input(BaseModel):
+class Prediction_Input(BaseModel):
     latitude: float
     longitude: float
     category: str

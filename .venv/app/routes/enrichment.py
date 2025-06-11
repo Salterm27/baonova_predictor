@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from app.models.schemas import TagRequest, AttributeRequest, Enriched_Business
+from app.models.schemas import TagRequest, AttributeRequest, Enriched_Business, Prediction_Input
 
-from app.utils.ai_enrichment import enrich_business_tags, enrich_attributes_vector
+from app.utils.ai_enrichment import enrich_business_tags, enrich_attributes_vector, enrichment_pipeline
 
 router = APIRouter()
 
@@ -33,3 +33,7 @@ def get_dining_tags_endpoint(input: Enriched_Business):
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/enrich/")
+def enrich_only(input: Prediction_Input):
+    return enrichment_pipeline(input)

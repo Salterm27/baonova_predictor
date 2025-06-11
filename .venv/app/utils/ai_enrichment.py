@@ -2,6 +2,7 @@ import os
 import json
 from dotenv import load_dotenv
 from openai import OpenAI
+from app.models.schemas import Prediction_Input
 
 # Load environment variables
 load_dotenv()
@@ -211,3 +212,12 @@ Return tags, attributes and dining_tags as a plain JSON with all attributes in t
     if content.startswith("```"):
         content = "\n".join(line for line in content.splitlines() if not line.strip().startswith("```"))
     return json.loads(content)
+
+def enrichment_pipeline(input: Prediction_Input):
+    merged_data=get_location_details(input.latitude, input.longitude)
+    merged_data.update(encode_address_type(input.latitude, input.longitude))
+    merged_data.update(enrich_business_tags(merged_data["city"], input.category))
+    merged_data.update(enrich_attributes_vector(merged_data))
+    merged_data.update(enrich_dining_beverage_tags(merged_data))
+    merged_data.update({"n_competitors_1km": input.n_competitors_1km})
+    return merged_data
