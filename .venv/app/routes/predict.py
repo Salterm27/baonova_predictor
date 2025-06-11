@@ -10,4 +10,6 @@ router = APIRouter()
 def prediction_pipeline(input: Prediction_Input):
     merged_data=get_location_details(input.latitude, input.longitude)
     merged_data.update(encode_address_type(input.latitude, input.longitude))
+    merged_data.update(enrich_business_tags(merged_data["city"], input.category))
+    merged_data.update(enrich_attributes_vector(merged_data))
     return merged_data
