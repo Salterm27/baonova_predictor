@@ -1,6 +1,5 @@
 from fastapi import APIRouter
-from app.models.schemas import TagRequest
-from app.models.schemas import AttributeRequest
+from app.models.schemas import TagRequest, AttributeRequest, Enriched_Business
 
 from app.utils.ai_enrichment import enrich_business_tags, enrich_attributes_vector
 
@@ -21,6 +20,16 @@ async def enrich_attributes_endpoint(business_data: AttributeRequest):
         result = enrich_attributes_vector(input_dict)
         if result is None:
             raise HTTPException(status_code=500, detail="Failed to enrich attributes.")
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/dining-tags/")
+def get_dining_tags_endpoint(input: Enriched_Business):
+    try:
+        result = conditionally_get_dining_tags(input.data)
+        if result is None:
+            raise HTTPException(status_code=500, detail="Failed to enrich dining tags.")
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

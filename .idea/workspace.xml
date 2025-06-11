@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd3c3ed2-ca38-435b-9bfd-0704823511b3" name="Changes" comment="Updated workspace.xml to reflect recent file path changes and task updates.">
+    <list default="true" id="dd3c3ed2-ca38-435b-9bfd-0704823511b3" name="Changes" comment="Updated workspace.xml to include recent task changes and dining/beverage tag enrichment in the `predict` pipeline.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.venv/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/app/routes/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/routes/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/app/utils/ai_enrichment.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/utils/ai_enrichment.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +169,95 @@
       <option name="project" value="LOCAL" />
       <updated>1749617935566</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Refined AI enrichment output to return a flat JSON object instead of a nested structure.">
+      <option name="closed" value="true" />
+      <created>1749648308132</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1749648308132</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Extended `predict` pipeline with business tags and attributes enrichment.">
+      <option name="closed" value="true" />
+      <created>1749648322944</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1749648322944</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added `Enriched_Business` schema to support enriched business data structure.">
+      <option name="closed" value="true" />
+      <created>1749648925400</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1749648925400</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added utility functions for dining and beverage enrichment, including GPT-based tag classification logic.">
+      <option name="closed" value="true" />
+      <created>1749648941798</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1749648941798</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added dining tags enrichment endpoint and improved error handling in enrichment routes.">
+      <option name="closed" value="true" />
+      <created>1749648954710</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1749648954710</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Updated workspace.xml to reflect changes in the `predict` pipeline and task adjustments, including enhancements for business tags and attributes enrichment.">
+      <option name="closed" value="true" />
+      <created>1749648966180</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1749648966180</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Removed example usage code from `ai_enrichment.py` and refined docstring for clarity on flat JSON object return structure.">
+      <option name="closed" value="true" />
+      <created>1749649323278</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1749649323278</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Extended `predict` pipeline to include dining and beverage tag enrichment.">
+      <option name="closed" value="true" />
+      <created>1749649334372</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1749649334372</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Extended `predict` pipeline to include dining and beverage tag enrichment.">
+      <option name="closed" value="true" />
+      <created>1749649341961</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1749649341961</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Extended `predict` pipeline to include dining and beverage tag enrichment.">
+      <option name="closed" value="true" />
+      <created>1749649351956</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1749649351956</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Updated workspace.xml to include recent task changes and dining/beverage tag enrichment in the `predict` pipeline.">
+      <option name="closed" value="true" />
+      <created>1749649755004</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1749649755004</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,7 +277,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Startup post" />
     <MESSAGE value="Updated workspace.xml to reflect recent file path changes and task updates." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated workspace.xml to reflect recent file path changes and task updates." />
+    <MESSAGE value="Integrated `predict` endpoint and updated workspace.xml with recent file path and task changes." />
+    <MESSAGE value="Refined AI enrichment output to return a flat JSON object instead of a nested structure." />
+    <MESSAGE value="Extended `predict` pipeline with business tags and attributes enrichment." />
+    <MESSAGE value="Added `Enriched_Business` schema to support enriched business data structure." />
+    <MESSAGE value="Added utility functions for dining and beverage enrichment, including GPT-based tag classification logic." />
+    <MESSAGE value="Added dining tags enrichment endpoint and improved error handling in enrichment routes." />
+    <MESSAGE value="Updated workspace.xml to reflect changes in the `predict` pipeline and task adjustments, including enhancements for business tags and attributes enrichment." />
+    <MESSAGE value="Removed example usage code from `ai_enrichment.py` and refined docstring for clarity on flat JSON object return structure." />
+    <MESSAGE value="Extended `predict` pipeline to include dining and beverage tag enrichment." />
+    <MESSAGE value="Updated workspace.xml to include recent task changes and dining/beverage tag enrichment in the `predict` pipeline." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated workspace.xml to include recent task changes and dining/beverage tag enrichment in the `predict` pipeline." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/baonova$baonova.coverage" NAME="baonova Coverage Results" MODIFIED="1749599059341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
