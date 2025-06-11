@@ -137,3 +137,71 @@ if __name__ == "__main__":
     attributes = enrich_attributes_vector(merged_data)
     if attributes:
         print(json.dumps(attributes, indent=2))
+
+def conditionally_get_dining_tags(data: dict) -> dict:
+    # Define triggering tags
+    dining_tag_keys = [
+        "italian", "japanese", "mexican", "pizza", "salad", "sandwiches", "seafood", "spirits", "wine",
+        "RestaurantsDelivery", "OutdoorSeating", "RestaurantsPriceRange2", "RestaurantsTakeOut", "Alcohol",
+        "Caters", "RestaurantsReservations", "RestaurantsGoodForGroups", "HappyHour", "RestaurantsTableService",
+        "DriveThru", "Corkage", "RestaurantsCounterService", "american_new", "american_traditional", "beer",
+        "burgers", "caterers", "chicken_wings", "chinese", "breakfast", "brunch", "fast_food", "BYOB", "GoodForDancing"
+    ]
+
+    trigger_tags = [
+        "restaurants", "bars", "food", "coffee", "tea", "nightlife", "specialty_food"
+    ]
+
+
+    should_trigger = any(data.get(tag, 0) == 1 for tag in trigger_tags)
+
+    if not should_trigger:
+        return {key: 0 for key in dining_tag_keys}
+
+    return get_dining_beverage_tags(data)  # The GPT call
+
+
+def enrich_dining_beverage_tags(data: dict) -> dict:
+    prompt = f"""
+You are a classification system that enriches business data. Given detailed information about a business (including city, type, tags, and attributes), determine which of the following tags apply.
+
+These tags relate to food, alcohol, beverages, service types, or cuisine styles. Return a JSON object where each key is 1 (relevant) or 0 (not relevant):
+
+[
+  "italian", "japanese", "mexican", "pizza", "salad", "sandwiches", "seafood", "spirits", "wine",
+  "RestaurantsDelivery", "OutdoorSeating", "RestaurantsPriceRange2", "RestaurantsTakeOut", "Alcohol", "Caters",
+  "RestaurantsReservations", "RestaurantsGoodForGroups", "HappyHour", "RestaurantsTableService", "DriveThru",
+  "Corkage", "RestaurantsCounterService", "american_new", "american_traditional", "beer", "burgers", "caterers",
+  "chicken_wings", "chinese", "breakfast", "brunch", "fast_food", "BYOB", "GoodForDancing"
+]
+
+Only return the JSON object called "dining_tags". Use your best judgment based on the presence of food, drink, and entertainment tags in the input.
+
+### Input
+{json.dumps(data, indent=2)}
+
+### Output
+Return only the dining_tags JSON object.
+"""
+
+
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo", # Using a generally available model
+            messages=[
+            {"role": "system", "content": "You classify service, cuisine, and alcohol-related tags."},
+            {"role": "user", "content": prompt}
+        ],
+            temperature=0.2,
+            response_format={ "type": "json_object" } # Requesting JSON output
+        )
+
+        # Extract the content and parse the JSON
+        dining_json_string = response.choices[0].message.content
+        dining_dict = json.loads(dining_json_string)
+        return dining_dict
+
+    except Exception as e:
+        print(f"An error occurred during dining & beverage enrichment: {e}")
+        return None
