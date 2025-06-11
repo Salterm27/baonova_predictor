@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd3c3ed2-ca38-435b-9bfd-0704823511b3" name="Changes" comment="Updated workspace.xml to reflect recent file path changes and task updates.">
+    <list default="true" id="dd3c3ed2-ca38-435b-9bfd-0704823511b3" name="Changes" comment="Extended `predict` pipeline with business tags and attributes enrichment.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.venv/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/app/models/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/models/schemas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/app/routes/enrichment.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/routes/enrichment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/app/utils/ai_enrichment.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/utils/ai_enrichment.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +170,23 @@
       <option name="project" value="LOCAL" />
       <updated>1749617935566</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Refined AI enrichment output to return a flat JSON object instead of a nested structure.">
+      <option name="closed" value="true" />
+      <created>1749648308132</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1749648308132</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Extended `predict` pipeline with business tags and attributes enrichment.">
+      <option name="closed" value="true" />
+      <created>1749648322944</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1749648322944</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,7 +206,10 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Startup post" />
     <MESSAGE value="Updated workspace.xml to reflect recent file path changes and task updates." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated workspace.xml to reflect recent file path changes and task updates." />
+    <MESSAGE value="Integrated `predict` endpoint and updated workspace.xml with recent file path and task changes." />
+    <MESSAGE value="Refined AI enrichment output to return a flat JSON object instead of a nested structure." />
+    <MESSAGE value="Extended `predict` pipeline with business tags and attributes enrichment." />
+    <option name="LAST_COMMIT_MESSAGE" value="Extended `predict` pipeline with business tags and attributes enrichment." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/baonova$baonova.coverage" NAME="baonova Coverage Results" MODIFIED="1749599059341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
