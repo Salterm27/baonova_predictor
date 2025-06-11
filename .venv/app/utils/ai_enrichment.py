@@ -3,6 +3,8 @@ import json
 from dotenv import load_dotenv
 from openai import OpenAI
 from app.models.schemas import Prediction_Input
+from app.utils.geocode import get_location_details, encode_address_type
+
 
 # Load environment variables
 load_dotenv()

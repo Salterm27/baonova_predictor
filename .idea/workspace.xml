@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd3c3ed2-ca38-435b-9bfd-0704823511b3" name="Changes" comment="Updated workspace.xml to include recent task changes and dining/beverage tag enrichment in the `predict` pipeline.">
+    <list default="true" id="dd3c3ed2-ca38-435b-9bfd-0704823511b3" name="Changes" comment="Refactored prediction pipelines by centralizing enrichment logic into `enrichment_pipeline`, removed redundant endpoints, and added `/enrich/` endpoint for streamlined data enrichment.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.venv/app/models/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/models/schemas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/app/routes/enrichment.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/routes/enrichment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.venv/app/routes/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/routes/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.venv/app/utils/predictor_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/utils/predictor_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.venv/app/utils/ai_enrichment.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/utils/ai_enrichment.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +115,7 @@
       <updated>1749597140681</updated>
       <workItem from="1749597141774" duration="5059000" />
       <workItem from="1749652917856" duration="114000" />
-      <workItem from="1749653035622" duration="2375000" />
+      <workItem from="1749653035622" duration="3321000" />
     </task>
     <task id="LOCAL-00001" summary="Startup post">
       <option name="closed" value="true" />
@@ -269,7 +269,47 @@
       <option name="project" value="LOCAL" />
       <updated>1749652940497</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Added `myPredictionInput` schema to extend input handling for prediction models.">
+      <option name="closed" value="true" />
+      <created>1749656336192</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1749656336192</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Refactored `predict` function to improve input validation, handle missing/NaN features, and enhance error handling in predictor model.">
+      <option name="closed" value="true" />
+      <created>1749656347892</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1749656347892</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Added `/predict_only/` endpoint for simplified prediction handling with `myPredictionInput` schema, extending functionality of the `predict` pipeline.">
+      <option name="closed" value="true" />
+      <created>1749656357764</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1749656357764</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Updated workspace.xml to reflect schema refinement, task updates, and adjustments in the `predict` pipeline.">
+      <option name="closed" value="true" />
+      <created>1749656490248</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1749656490248</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Refactored prediction pipelines by centralizing enrichment logic into `enrichment_pipeline`, removed redundant endpoints, and added `/enrich/` endpoint for streamlined data enrichment.">
+      <option name="closed" value="true" />
+      <created>1749657065140</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1749657065140</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,7 +339,12 @@
     <MESSAGE value="Removed example usage code from `ai_enrichment.py` and refined docstring for clarity on flat JSON object return structure." />
     <MESSAGE value="Extended `predict` pipeline to include dining and beverage tag enrichment." />
     <MESSAGE value="Updated workspace.xml to include recent task changes and dining/beverage tag enrichment in the `predict` pipeline." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated workspace.xml to include recent task changes and dining/beverage tag enrichment in the `predict` pipeline." />
+    <MESSAGE value="Added `myPredictionInput` schema to extend input handling for prediction models." />
+    <MESSAGE value="Refactored `predict` function to improve input validation, handle missing/NaN features, and enhance error handling in predictor model." />
+    <MESSAGE value="Added `/predict_only/` endpoint for simplified prediction handling with `myPredictionInput` schema, extending functionality of the `predict` pipeline." />
+    <MESSAGE value="Updated workspace.xml to reflect schema refinement, task updates, and adjustments in the `predict` pipeline." />
+    <MESSAGE value="Refactored prediction pipelines by centralizing enrichment logic into `enrichment_pipeline`, removed redundant endpoints, and added `/enrich/` endpoint for streamlined data enrichment." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored prediction pipelines by centralizing enrichment logic into `enrichment_pipeline`, removed redundant endpoints, and added `/enrich/` endpoint for streamlined data enrichment." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/baonova$baonova.coverage" NAME="baonova Coverage Results" MODIFIED="1749599059341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

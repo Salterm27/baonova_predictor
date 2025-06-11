@@ -8,6 +8,6 @@ from app.utils.predictor_model import predict
 router = APIRouter()
 
 
-@router.post("/predict_only/")
+@router.post("/predict/")
 def simple_prediction(input: myPredictionInput):
     return predict(input)

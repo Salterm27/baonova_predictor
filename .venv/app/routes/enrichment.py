@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 from app.models.schemas import TagRequest, AttributeRequest, Enriched_Business, Prediction_Input
-
 from app.utils.ai_enrichment import enrich_business_tags, enrich_attributes_vector, enrichment_pipeline
 
 router = APIRouter()
