@@ -7,7 +7,6 @@ from openai import OpenAI
 load_dotenv()
 api_key = os.getenv("openai_key")
 
-# Create OpenAI client using new API (v1.x)
 client = OpenAI(api_key=api_key)
 
 TAGS = [
@@ -180,3 +179,35 @@ Return only a flat JSON object with no nesting.
     except Exception as e:
         print(f"An error occurred during dining & beverage enrichment: {e}")
         return None
+
+def unified_enrichment(data: dict) -> dict:
+    prompt = f"""
+You are a business enrichment system. Given a JSON object with basic information about a business (location, competitors, street type, and base tags), return a unified enrichment result.
+
+The result should include:
+1. `tags`: Relevance of general business category tags (1 or 0)
+2. `attributes`: Operational/service attributes (1 or 0)
+3. `dining_tags`: Food, beverage, and dining-related tags (1 or 0)
+
+All three should be returned as flat JSON objects.
+
+### Input
+{json.dumps(data, indent=2)}
+
+### Output
+Return tags, attributes and dining_tags as a plain JSON with all attributes in the same hierarchical level. Do not add comments or explanations.
+"""
+
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You enrich business data across multiple tag systems."},
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.2
+    )
+
+    content = response.choices[0].message.content.strip()
+    if content.startswith("```"):
+        content = "\n".join(line for line in content.splitlines() if not line.strip().startswith("```"))
+    return json.loads(content)
