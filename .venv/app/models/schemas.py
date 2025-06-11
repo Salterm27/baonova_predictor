@@ -24,3 +24,8 @@ class   Prediction_Input(BaseModel):
 
 class Enriched_Business(BaseModel):
     data: Dict[str, Any]
+
+
+class myPredictionInput(BaseModel):
+    # Input schema
+    data: Dict[str, Any]
