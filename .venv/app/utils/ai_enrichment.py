@@ -113,31 +113,6 @@ Return only a flat JSON object with no nesting.
         print(f" An error occurred during attribute enrichment: {e}")
         return None
 
-# Example usage
-if __name__ == "__main__":
-    # Example dummy data
-    merged_data = {
-        "city": "New York",
-        "postal_code": "10001",
-        "num_competitors": 12,
-        "street_type": {
-            "road": 0,
-            "ave": 1,
-            "st": 0
-        },
-        "tags": {
-            "restaurants": 1,
-            "coffee": 1,
-            "fitness": 0,
-            "nail_salons": 0,
-            "bars": 1
-        }
-    }
-
-    attributes = enrich_attributes_vector(merged_data)
-    if attributes:
-        print(json.dumps(attributes, indent=2))
-
 def conditionally_get_dining_tags(data: dict) -> dict:
     # Define triggering tags
     dining_tag_keys = [
@@ -175,13 +150,13 @@ These tags relate to food, alcohol, beverages, service types, or cuisine styles.
   "chicken_wings", "chinese", "breakfast", "brunch", "fast_food", "BYOB", "GoodForDancing"
 ]
 
-Only return the JSON object called "dining_tags". Use your best judgment based on the presence of food, drink, and entertainment tags in the input.
+Return only a flat JSON object where each tag is a top-level key. Use your best judgment based on the presence of food, drink, and entertainment tags in the input.
 
 ### Input
 {json.dumps(data, indent=2)}
 
 ### Output
-Return only the dining_tags JSON object.
+Return only a flat JSON object with no nesting.
 """
 
 
