@@ -82,7 +82,7 @@ Your output must only contain this JSON structure with values 1 or 0 (except whe
 {json.dumps(data, indent=2)}
 
 ### Output
-Return only the attributes_vector JSON object.
+Return only a flat JSON object with no nesting.
 """
 
     try:
