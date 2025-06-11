@@ -1,4 +1,4 @@
-#Start Up
+# Start Up
 ## Secrets
 You will need to add your secrets in your .env file
 ## Dependencies
