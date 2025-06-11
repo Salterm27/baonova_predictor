@@ -5,6 +5,18 @@ from openai import OpenAI
 from app.models.schemas import Prediction_Input
 from app.utils.geocode import get_location_details, encode_address_type
 
+class EnrichmentError(Exception):
+    """Base exception for enrichment errors"""
+    pass
+
+class JSONDecodeEnrichmentError(EnrichmentError):
+    """Exception raised when JSON decoding fails during enrichment"""
+    pass
+
+class APIEnrichmentError(EnrichmentError):
+    """Exception raised when API calls fail during enrichment"""
+    pass
+
 
 # Load environment variables
 load_dotenv()
@@ -55,10 +67,10 @@ Return only a JSON object with the corresponding tags set to 1 or 0 based on the
 
     except json.JSONDecodeError as je:
         print(f"JSON Decode Error: {je}")
-        return None
+        raise JSONDecodeEnrichmentError(f"Failed to parse tag enrichment response: {je}")
     except Exception as e:
         print(f"Error during enrichment: {e}")
-        return None
+        raise APIEnrichmentError(f"Tag enrichment failed: {e}")
 
 
 def enrich_attributes_vector(data: dict) -> dict:
@@ -110,10 +122,10 @@ Return only a flat JSON object with no nesting.
 
     except json.JSONDecodeError as je:
         print(f" JSON Decode Error: {je}")
-        return None
+        raise JSONDecodeEnrichmentError(f"Failed to parse attribute enrichment response: {je}")
     except Exception as e:
         print(f" An error occurred during attribute enrichment: {e}")
-        return None
+        raise APIEnrichmentError(f"Attribute enrichment failed: {e}")
 
 def conditionally_get_dining_tags(data: dict) -> dict:
     # Define triggering tags
@@ -179,9 +191,12 @@ Return only a flat JSON object with no nesting.
         dining_dict = json.loads(dining_json_string)
         return dining_dict
 
+    except json.JSONDecodeError as je:
+        print(f"JSON Decode Error: {je}")
+        raise JSONDecodeEnrichmentError(f"Failed to parse dining & beverage enrichment response: {je}")
     except Exception as e:
         print(f"An error occurred during dining & beverage enrichment: {e}")
-        return None
+        raise APIEnrichmentError(f"Dining & beverage enrichment failed: {e}")
 
 def unified_enrichment(data: dict) -> dict:
     prompt = f"""
@@ -201,25 +216,43 @@ All three should be returned as flat JSON objects.
 Return tags, attributes and dining_tags as a plain JSON with all attributes in the same hierarchical level. Do not add comments or explanations.
 """
 
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You enrich business data across multiple tag systems."},
-            {"role": "user", "content": prompt}
-        ],
-        temperature=0.2
-    )
+    try:
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You enrich business data across multiple tag systems."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.2
+        )
 
-    content = response.choices[0].message.content.strip()
-    if content.startswith("```"):
-        content = "\n".join(line for line in content.splitlines() if not line.strip().startswith("```"))
-    return json.loads(content)
+        content = response.choices[0].message.content.strip()
+        if content.startswith("```"):
+            content = "\n".join(line for line in content.splitlines() if not line.strip().startswith("```"))
+        return json.loads(content)
+    except json.JSONDecodeError as je:
+        print(f"JSON Decode Error: {je}")
+        raise JSONDecodeEnrichmentError(f"Failed to parse unified enrichment response: {je}")
+    except Exception as e:
+        print(f"An error occurred during unified enrichment: {e}")
+        raise APIEnrichmentError(f"Unified enrichment failed: {e}")
 
 def enrichment_pipeline(input: Prediction_Input):
-    merged_data=get_location_details(input.latitude, input.longitude)
-    merged_data.update(encode_address_type(input.latitude, input.longitude))
-    merged_data.update(enrich_business_tags(merged_data["city"], input.category))
-    merged_data.update(enrich_attributes_vector(merged_data))
-    merged_data.update(enrich_dining_beverage_tags(merged_data))
-    merged_data.update({"n_competitors_1km": input.n_competitors_1km})
-    return merged_data
+    try:
+        merged_data = get_location_details(input.latitude, input.longitude)
+        if not merged_data.get("city"):
+            raise EnrichmentError("Could not determine city from coordinates")
+
+        merged_data.update(encode_address_type(input.latitude, input.longitude))
+        merged_data.update(enrich_business_tags(merged_data["city"], input.category))
+        merged_data.update(enrich_attributes_vector(merged_data))
+        merged_data.update(enrich_dining_beverage_tags(merged_data))
+        merged_data.update({"n_competitors_1km": input.n_competitors_1km})
+        return merged_data
+    except (JSONDecodeEnrichmentError, APIEnrichmentError) as e:
+        # Let these specific exceptions propagate up
+        raise
+    except Exception as e:
+        # Catch any other exceptions and wrap them
+        print(f"Error in enrichment pipeline: {e}")
+        raise EnrichmentError(f"Enrichment pipeline failed: {str(e)}")

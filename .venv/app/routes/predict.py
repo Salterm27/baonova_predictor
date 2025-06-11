@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from app.models.schemas import Prediction_Input, myPredictionInput
 from app.utils.geocode import get_location_details, encode_address_type
 from app.utils.ai_enrichment import enrich_business_tags, enrich_attributes_vector, enrich_dining_beverage_tags, unified_enrichment
@@ -10,4 +10,8 @@ router = APIRouter()
 
 @router.post("/predict/")
 def simple_prediction(input: myPredictionInput):
-    return predict(input)
+    try:
+        result = predict(input)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
