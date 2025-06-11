@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Dict
+from typing import Dict, Any
 
 class Coordinates(BaseModel):
     latitude: float
@@ -21,3 +21,6 @@ class   Prediction_Input(BaseModel):
     longitude: float
     category: str
     n_competitors_1km: int
+
+class Enriched_Business(BaseModel):
+    data: Dict[str, Any]
