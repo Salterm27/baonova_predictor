@@ -16,16 +16,14 @@ class AttributeRequest(BaseModel):
     street_type: Dict[str, int]
     tags: Dict[str, int]
 
+class Enriched_Business(BaseModel):
+    data: Dict[str, Any]
+
 class Prediction_Input(BaseModel):
     latitude: float
     longitude: float
     category: str
     n_competitors_1km: int
 
-class Enriched_Business(BaseModel):
-    data: Dict[str, Any]
-
-
 class myPredictionInput(BaseModel):
-    # Input schema
     data: Dict[str, Any]
