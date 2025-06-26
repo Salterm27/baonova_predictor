@@ -8,6 +8,11 @@ from app.utils.predictor_model import predict
 router = APIRouter()
 
 
+@router.post("/predict/light")
+def simple_prediction(input: myPredictionInput):
+    return predict(input)
+
 @router.post("/predict/")
 def simple_prediction(input: myPredictionInput):
     return predict(input)
+
