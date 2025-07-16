@@ -20,15 +20,16 @@ TAGS = [
     "medical", "nail_salons", "nightlife", "pet_services", "pets", "professional_services", "real_estate",
     "restaurants", "services", "shopping", "skin_care", "spas", "specialty_food", "tea", "travel", "venues", "waxing"
 ]
-def enrich_business_tags(city: str, category: str) -> dict:
+def enrich_business_tags(city: str, category: str, description: str) -> dict:
     prompt = f"""
-You are a classification system that enriches business data. Given a city and a business category, return a JSON object where each tag from the following list is labeled as 1 (relevant) or 0 (not relevant) to the business context:
+You are a classification system that enriches business data. Given a city, a business category, and a short description return a JSON object where each tag from the following list is labeled as 1 (relevant) or 0 (not relevant) to the business context:
 
 {json.dumps(TAGS, indent=2)}
 
 ### Input
 City: {city}
 Business Category: {category}
+short description: {description}
 
 ### Output
 Return only a JSON object with the corresponding tags set to 1 or 0 based on the relevance of the business type and city.
@@ -61,7 +62,7 @@ Return only a JSON object with the corresponding tags set to 1 or 0 based on the
         return None
 
 
-def enrich_attributes_vector(data: dict) -> dict:
+def enrich_attributes_vector(data: dict, description:str) -> dict:
     prompt = f"""
 You are a classification system that enriches business data. Based on the following JSON input, return an "attributes_vector" JSON object that includes operational and service attributes for the business.
 
@@ -70,6 +71,7 @@ The input includes:
 - number of competitors nearby
 - street type indicators (road, ave, st, etc.)
 - category tags with 1 or 0 relevance
+- a short description for the business
 
 Your output must only contain this JSON structure with values 1 or 0 (except where noted):
 
@@ -81,7 +83,8 @@ Your output must only contain this JSON structure with values 1 or 0 (except whe
 ]
 
 ### Input
-{json.dumps(data, indent=2)}
+json:{json.dumps(data, indent=2)}
+short supplementary description: {description}
 
 ### Output
 Return only a flat JSON object with no nesting.
@@ -138,9 +141,9 @@ def conditionally_get_dining_tags(data: dict) -> dict:
     return get_dining_beverage_tags(data)  # The GPT call
 
 
-def enrich_dining_beverage_tags(data: dict) -> dict:
+def enrich_dining_beverage_tags(data: dict, description: str) -> dict:
     prompt = f"""
-You are a classification system that enriches business data. Given detailed information about a business (including city, type, tags, and attributes), determine which of the following tags apply.
+You are a classification system that enriches business data. Given detailed information about a business (including city, type, tags, attributes, description), determine which of the following tags apply.
 
 These tags relate to food, alcohol, beverages, service types, or cuisine styles. Return a JSON object where each key is 1 (relevant) or 0 (not relevant):
 
@@ -155,7 +158,9 @@ These tags relate to food, alcohol, beverages, service types, or cuisine styles.
 Return only a flat JSON object where each tag is a top-level key. Use your best judgment based on the presence of food, drink, and entertainment tags in the input.
 
 ### Input
+Json input: 
 {json.dumps(data, indent=2)}
+Short description: {description}
 
 ### Output
 Return only a flat JSON object with no nesting.
@@ -218,8 +223,8 @@ Return tags, attributes and dining_tags as a plain JSON with all attributes in t
 def enrichment_pipeline(input: Prediction_Input):
     merged_data=get_location_details(input.latitude, input.longitude)
     merged_data.update(encode_address_type(input.latitude, input.longitude))
-    merged_data.update(enrich_business_tags(merged_data["city"], input.category))
-    merged_data.update(enrich_attributes_vector(merged_data))
-    merged_data.update(enrich_dining_beverage_tags(merged_data))
+    merged_data.update(enrich_business_tags(merged_data["city"], input.category, input.description))
+    merged_data.update(enrich_attributes_vector(merged_data, input.description))
+    merged_data.update(enrich_dining_beverage_tags(merged_data, input.description))
     merged_data.update({"n_competitors_1km": input.n_competitors_1km})
     return merged_data

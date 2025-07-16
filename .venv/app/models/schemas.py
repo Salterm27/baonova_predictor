@@ -8,6 +8,7 @@ class Coordinates(BaseModel):
 class TagRequest(BaseModel):
     city: str
     category: str
+    description: str
 
 class AttributeRequest(BaseModel):
     city: str
@@ -15,6 +16,7 @@ class AttributeRequest(BaseModel):
     num_competitors: int
     street_type: Dict[str, int]
     tags: Dict[str, int]
+    description: str
 
 class Enriched_Business(BaseModel):
     data: Dict[str, Any]
@@ -24,6 +26,7 @@ class Prediction_Input(BaseModel):
     longitude: float
     category: str
     n_competitors_1km: int
+    description: str
 
 class myPredictionInput(BaseModel):
     data: Dict[str, Any]
