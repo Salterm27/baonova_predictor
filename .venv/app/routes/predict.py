@@ -16,5 +16,5 @@ def simple_prediction(input: myPredictionInput):
 def prediction(input: Prediction_Input):
     enriched_data = enrichment_pipeline(input)  # dict of features
     wrapped = myPredictionInput(data=enriched_data)  # wraps in model
-    return predict(wrapped), wrapped
+    return predict(wrapped)
 
