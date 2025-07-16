@@ -14,16 +14,22 @@ def simple_prediction(input: myPredictionInput):
 
 @router.post("/predict/")
 def prediction(input: Prediction_Input):
-    probabilities = []
-    all_predictions = []
+    model_averages = []
+    all_probabilities = []
 
-    for _ in range(5):
+    for _ in range(5):  # Create enriched variants
         enriched_data = enrichment_pipeline(input)
         wrapped = myPredictionInput(data=enriched_data)
-        prediction = predict(wrapped)
-        all_predictions.append(prediction)
-        probabilities.append(prediction["probability"])
 
-    average_probability = sum(probabilities) / len(probabilities)
+        probabilities = []
+        for _ in range(20):
+            prediction = predict(wrapped)  # {"probability": float}
+            prob = prediction["probability"]
+            probabilities.append(prob)
+            all_probabilities.append(prob)
 
-    return  average_probability
+        model_avg = sum(probabilities) / len(probabilities)
+        model_averages.append(model_avg)
+
+    overall_average = sum(all_probabilities) / len(all_probabilities)
+    return overall_average
