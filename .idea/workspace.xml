@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd3c3ed2-ca38-435b-9bfd-0704823511b3" name="Changes" comment="Refactored `/predict/` endpoint to use `enrichment_pipeline` for preprocessing, updated input schema, and streamlined prediction handling with enriched data.">
+    <list default="true" id="dd3c3ed2-ca38-435b-9bfd-0704823511b3" name="Changes" comment="Enhanced `enrichment_pipeline` to include a `description` parameter for improved business data enrichment, updated related schema models, and adjusted `/predict/` endpoint logic accordingly.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.venv/app/models/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/models/schemas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.venv/app/routes/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/routes/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.venv/app/utils/ai_enrichment.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/app/utils/ai_enrichment.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +118,7 @@
       <workItem from="1750292594743" duration="326000" />
       <workItem from="1750293864955" duration="3776000" />
       <workItem from="1750724118352" duration="17810000" />
-      <workItem from="1752704331534" duration="1117000" />
+      <workItem from="1752704331534" duration="2146000" />
     </task>
     <task id="LOCAL-00001" summary="Startup post">
       <option name="closed" value="true" />
@@ -330,7 +328,23 @@
       <option name="project" value="LOCAL" />
       <updated>1750898539607</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Enhanced `enrichment_pipeline` to include a `description` parameter for improved business data enrichment, updated related schema models, and adjusted `/predict/` endpoint logic accordingly.">
+      <option name="closed" value="true" />
+      <created>1752705586246</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1752705586246</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Enhanced `enrichment_pipeline` to include a `description` parameter for improved business data enrichment, updated related schema models, and adjusted `/predict/` endpoint logic accordingly.">
+      <option name="closed" value="true" />
+      <created>1752705595428</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1752705595428</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -368,7 +382,8 @@
     <MESSAGE value="Added error validation" />
     <MESSAGE value="Added `/predict/light` endpoint for simplified prediction handling using `myPredictionInput`." />
     <MESSAGE value="Refactored `/predict/` endpoint to use `enrichment_pipeline` for preprocessing, updated input schema, and streamlined prediction handling with enriched data." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored `/predict/` endpoint to use `enrichment_pipeline` for preprocessing, updated input schema, and streamlined prediction handling with enriched data." />
+    <MESSAGE value="Enhanced `enrichment_pipeline` to include a `description` parameter for improved business data enrichment, updated related schema models, and adjusted `/predict/` endpoint logic accordingly." />
+    <option name="LAST_COMMIT_MESSAGE" value="Enhanced `enrichment_pipeline` to include a `description` parameter for improved business data enrichment, updated related schema models, and adjusted `/predict/` endpoint logic accordingly." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/baonova$baonova.coverage" NAME="baonova Coverage Results" MODIFIED="1749599059341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

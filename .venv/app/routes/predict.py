@@ -14,7 +14,15 @@ def simple_prediction(input: myPredictionInput):
 
 @router.post("/predict/")
 def prediction(input: Prediction_Input):
-    enriched_data = enrichment_pipeline(input)  # dict of features
-    wrapped = myPredictionInput(data=enriched_data)  # wraps in model
-    return predict(wrapped)
+    results = []
 
+    for _ in range(10):
+        enriched_data = enrichment_pipeline(input)  # dict of features
+        wrapped = myPredictionInput(data=enriched_data)
+        result = predict(wrapped)
+        results.append(result)
+
+    # Assuming result is a number (float or int)
+    average = sum(results) / len(results)
+
+    return average
