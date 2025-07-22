@@ -19,7 +19,7 @@ def prediction(input: Prediction_Input):
     model_averages = []
     all_probabilities = []
 
-    for _ in range(5):  # Create enriched variants with jittered coordinates
+    for _ in range(10):  # Create enriched variants with jittered coordinates
         jittered_lat, jittered_lon = jitter_coordinates(input.latitude, input.longitude)
 
         # Create a modified input with jittered coordinates
@@ -35,7 +35,7 @@ def prediction(input: Prediction_Input):
         wrapped = myPredictionInput(data=enriched_data)
 
         probabilities = []
-        for _ in range(20):
+        for _ in range(10):
             prediction = predict(wrapped)  # {"probability": float}
             prob = prediction["probability"]
             probabilities.append(prob)
